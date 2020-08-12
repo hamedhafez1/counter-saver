@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
@@ -36,10 +37,8 @@ class CountListFragment : Fragment() {
         recyclerView!!.adapter = adapter
 
         val dividerItemDecoration = DividerItemDecoration(context,linearLayoutManager.orientation)
-        context?.resources?.getDrawable(R.drawable.list_divider)?.let {
-            dividerItemDecoration.setDrawable(
-                it
-            )
+        ContextCompat.getDrawable(requireContext(),R.drawable.list_divider)?.let { drawable ->
+            dividerItemDecoration.setDrawable(drawable)
         }
         recyclerView!!.addItemDecoration(dividerItemDecoration)
 

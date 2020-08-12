@@ -1,12 +1,11 @@
 package ir.roela.countersaver.model
 
-import androidx.lifecycle.LiveData
 import androidx.room.*
 
 @Entity(tableName = "counter")
 class Counter {
     @PrimaryKey(autoGenerate = true)
-    @ColumnInfo(name = "CounterId")
+    @ColumnInfo(name = "counterId")
     var counterId: Int = 0
 
     @ColumnInfo(name = "counter_name")

@@ -5,7 +5,7 @@ import android.app.Application
 class G : Application() {
 
     companion object {
-        var counter = 0
+        var counter: Long = 0
         var db: AppDataBase? = null
     }
 

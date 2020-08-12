@@ -5,20 +5,19 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
-import android.widget.EditText
-import android.widget.TextView
-import android.widget.Toast
+import android.widget.*
 import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.Fragment
+import com.daimajia.androidanimations.library.Techniques
+import com.daimajia.androidanimations.library.YoYo
 import ir.roela.countersaver.G
 import ir.roela.countersaver.R
 import ir.roela.countersaver.model.Counter
 
 class HomeFragment : Fragment(), View.OnClickListener {
 
-    var textView: TextView? = null
-    private var btnCounterSave: Button? = null
+    private var textView: TextView? = null
+    private var btnCounterSave: ImageButton? = null
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -26,13 +25,14 @@ class HomeFragment : Fragment(), View.OnClickListener {
     ): View? {
         val root = inflater.inflate(R.layout.fragment_home, container, false)
         textView = root.findViewById(R.id.text_home)
-        val btnCounterPlus: Button = root.findViewById(R.id.btnInCreaseCounter)
+        val btnCounterPlus: ImageButton = root.findViewById(R.id.btnInCreaseCounter)
+        val btnCounterMinus: ImageButton = root.findViewById(R.id.btnDeCreaseCounter)
         btnCounterSave = root.findViewById(R.id.btnSaveCounter)
         btnCounterPlus.setOnClickListener(this)
+        btnCounterMinus.setOnClickListener(this)
         btnCounterSave?.setOnClickListener(this)
-        if (G.counter == 0) {
+        if (G.counter == 0L) {
             btnCounterSave?.isEnabled = false
-            /*btnCounterSave?.setBackgroundColor(Color.GRAY)*/
         }
         textView?.text = G.counter.toString()
         return root
@@ -42,6 +42,7 @@ class HomeFragment : Fragment(), View.OnClickListener {
         when (v?.id) {
             R.id.btnInCreaseCounter -> increaseCount()
             R.id.btnSaveCounter -> showDialogSave()
+            R.id.btnDeCreaseCounter -> decrementCounter()
         }
     }
 
@@ -49,6 +50,19 @@ class HomeFragment : Fragment(), View.OnClickListener {
         G.counter++
         textView?.text = G.counter.toString()
         btnCounterSave!!.isEnabled = true
+        YoYo.with(Techniques.Landing)
+            .duration(750)
+            .playOn(textView)
+    }
+
+    private fun decrementCounter() {
+        if (G.counter != 0L) {
+            G.counter--
+            textView?.text = G.counter.toString()
+            YoYo.with(Techniques.Landing)
+                .duration(750)
+                .playOn(textView)
+        }
     }
 
     private fun saveCount(name: CharSequence) {
@@ -66,7 +80,7 @@ class HomeFragment : Fragment(), View.OnClickListener {
     }
 
     private fun showDialogSave() {
-        if (G.counter != 0) {
+        if (G.counter != 0L) {
             val saveDialog = AlertDialog.Builder(requireActivity()).create()
             val dlgView = LayoutInflater.from(context).inflate(R.layout.dlg_save_counter, null)
             val edtCountName = dlgView.findViewById<EditText>(R.id.edtCountName)
