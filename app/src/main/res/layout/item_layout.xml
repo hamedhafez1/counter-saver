@@ -5,27 +5,37 @@
     android:orientation="horizontal">
 
     <TextView
-        android:id="@+id/txtCounterName"
-        android:layout_width="0dp"
-        android:layout_height="match_parent"
-        android:layout_marginStart="10dp"
-        android:layout_marginEnd="4dp"
-        android:layout_weight="0.5"
-        android:gravity="center_vertical|start"
-        android:text="counter name"
-        android:textColor="@color/colorPrimary"
-        android:textSize="18sp" />
-
-    <TextView
         android:id="@+id/txtCounterValue"
         android:layout_width="0dp"
         android:layout_height="match_parent"
         android:layout_marginEnd="10dp"
         android:layout_weight="0.5"
         android:gravity="center_vertical|center"
-        android:text="counter value : 20"
+        android:text="@string/counter_Number"
         android:textColor="@color/colorPrimary"
         android:textSize="18sp" />
+
+    <TextView
+        android:id="@+id/txtCounterName"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_marginStart="10dp"
+        android:layout_weight="0.5"
+        android:gravity="center_vertical|center_horizontal"
+        android:text="@string/count_name"
+        android:textColor="@color/colorPrimary"
+        android:textSize="18sp" />
+
+    <ImageButton
+        android:id="@+id/btnDeleteCount"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_gravity="center"
+        android:layout_marginStart="10dp"
+        android:layout_marginEnd="10dp"
+        android:background="?selectableItemBackgroundBorderless"
+        android:contentDescription="@string/delete"
+        android:src="@drawable/ic_outline_delete_forever_24" />
 
 </LinearLayout>
 

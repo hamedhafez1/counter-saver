@@ -1,6 +1,26 @@
 <resources>
     <string name="app_name">بشمار</string>
-    <string name="title_home">Home</string>
-    <string name="title_dashboard">Dashboard</string>
-    <string name="title_notifications">Notifications</string>
+    <string name="title_home">بشمار</string>
+    <string name="title_counters">شمارش ها</string>
+    <string name="counter_plus">شمارش +</string>
+    <string name="counter_minus">شمارش -</string>
+    <string name="counter_Number">تعداد شمارش</string>
+    <string name="count_name">اسم شمارش</string>
+    <string name="save_counter">ذخیره شمارش</string>
+    <string name="close">بستن</string>
+    <string name="saved">ذخیره شد</string>
+    <string name="please_increase_counter">لطفا مقدار شمارنده را افزایش دهید</string>
+    <string name="entered_name_short">نام وارد شده خیلی کوتاه است</string>
+
+    <string name="contact_us_email"><b> ارتباط با توسعه دهنده: app.roela@gmail.com</b></string>
+    <string name="web_roela_ir"><b> وب سایت ما: www.roela.ir</b></string>
+    <string name="about_us">درباره ما</string>
+    <string name="about_desc">اپلیکیشن بشمار برنامه ای بسیار ساده برای ذخیره شمارش هر چیزی که تعداد آن برای کاربر حائز اهمیت است.</string>
+    <string name="delete">حذف</string>
+
+    <string name="version">%1$s %2$s %3$s</string>
+    <string name="beshmar_version">بشمار نسخه</string>
+    <string name="be_deleted">حذف شود؟</string>
+    <string name="no_count_available">شمارشی وجود ندارد</string>
+
 </resources>

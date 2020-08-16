@@ -2,7 +2,6 @@
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/mobile_navigation"
     app:startDestination="@+id/navigation_home">
 
     <fragment
@@ -18,7 +17,7 @@
     <fragment
         android:id="@+id/navigation_dashboard"
         android:name="ir.roela.countersaver.ui.dashboard.CountListFragment"
-        android:label="@string/title_dashboard"
+        android:label="@string/title_counters"
         tools:layout="@layout/fragment_dashboard" />
 
 </navigation>

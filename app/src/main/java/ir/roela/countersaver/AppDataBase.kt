@@ -5,16 +5,15 @@ import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
 import ir.roela.countersaver.model.Counter
+import ir.roela.countersaver.model.CounterDao
 
 @Database(entities = [Counter::class], version = 1)
-public abstract class AppDataBase : RoomDatabase() {
-    abstract fun counterDao(): Counter.CountDao?
+abstract class AppDataBase : RoomDatabase() {
+    abstract fun counterDao(): CounterDao?
 
     companion object {
         private var DATABASE_NAME = "dbCounter.db"
         private var instance: AppDataBase? = null
-        private const val NUMBER_OF_THREADS = 4
-//        val databaseWriteExecutor: ExecutorService = Executors.newFixedThreadPool(NUMBER_OF_THREADS)
 
         @Synchronized
         fun getInstance(context: Context): AppDataBase? {
@@ -22,10 +21,7 @@ public abstract class AppDataBase : RoomDatabase() {
                 instance = Room.databaseBuilder(
                     context.applicationContext,
                     AppDataBase::class.java, DATABASE_NAME
-                ) //delete all data an build again
-                    //                    .fallbackToDestructiveMigration()
-                    .allowMainThreadQueries()
-                    .build()
+                ).build()
             }
             return instance
         }

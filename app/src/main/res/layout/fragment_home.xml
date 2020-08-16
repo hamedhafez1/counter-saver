@@ -17,7 +17,7 @@
         android:singleLine="true"
         android:textAlignment="center"
         android:textColor="@color/colorPrimary"
-        android:textSize="28sp"
+        android:textSize="48sp"
         android:textStyle="bold" />
 
     <ImageButton
@@ -27,7 +27,7 @@
         android:layout_centerHorizontal="true"
         android:layout_centerVertical="true"
         android:background="@drawable/round_button"
-        android:contentDescription="Counter+"
+        android:contentDescription="@string/counter_plus"
         android:src="@drawable/ic_add_96"
         android:textAlignment="center"
         android:textAllCaps="false"
@@ -43,7 +43,7 @@
         android:layout_centerVertical="true"
         android:layout_marginTop="24dp"
         android:background="@drawable/round_button"
-        android:contentDescription="Counter-"
+        android:contentDescription="@string/counter_minus"
         android:src="@drawable/ic_remove_48"
         android:textAlignment="center"
         android:textAllCaps="false"
@@ -51,20 +51,33 @@
         android:textSize="19sp" />
 
     <LinearLayout
-        android:layout_width="96dp"
+        android:layout_width="wrap_content"
         android:layout_height="96dp"
         android:layout_below="@id/btnDeCreaseCounter"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="36dp"
         android:background="?selectableItemBackgroundBorderless"
-        android:gravity="center">
+        android:gravity="center"
+        android:layoutDirection="rtl"
+        android:orientation="horizontal">
 
         <ImageButton
             android:id="@+id/btnSaveCounter"
             android:layout_width="54dp"
             android:layout_height="54dp"
+            android:layout_marginEnd="20dp"
             android:background="@drawable/round_button"
-            android:contentDescription="save"
+            android:contentDescription="@string/save_counter"
             android:src="@drawable/ic_save_24" />
+
+        <ImageButton
+            android:id="@+id/btnResetCounter"
+            android:layout_width="54dp"
+            android:layout_height="54dp"
+            android:layout_marginStart="20dp"
+            android:background="@drawable/round_button"
+            android:contentDescription="@string/save_counter"
+            android:src="@drawable/ic_baseline_refresh_24" />
+
     </LinearLayout>
 </RelativeLayout>
