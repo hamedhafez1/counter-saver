@@ -56,7 +56,6 @@
         android:layout_below="@id/btnDeCreaseCounter"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="36dp"
-        android:background="?selectableItemBackgroundBorderless"
         android:gravity="center"
         android:layoutDirection="rtl"
         android:orientation="horizontal">
