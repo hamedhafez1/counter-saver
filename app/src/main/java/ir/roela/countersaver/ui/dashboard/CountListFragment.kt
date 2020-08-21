@@ -8,7 +8,6 @@ import android.view.ViewGroup
 import android.widget.LinearLayout
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.DefaultItemAnimator
 import androidx.recyclerview.widget.DividerItemDecoration
@@ -16,7 +15,6 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import ir.roela.countersaver.R
 import ir.roela.countersaver.adapter.CounterListAdapter
-import ir.roela.countersaver.model.Counter
 
 class CountListFragment : Fragment() {
 
@@ -46,7 +44,7 @@ class CountListFragment : Fragment() {
         recyclerView!!.addItemDecoration(dividerItemDecoration)
 
         dashboardViewModel.getCounters()?.observe(viewLifecycleOwner,
-            Observer<List<Counter>> { counters ->
+            { counters ->
                 try {
                     adapter = CounterListAdapter(requireActivity().application, counters)
                     recyclerView!!.adapter = adapter
