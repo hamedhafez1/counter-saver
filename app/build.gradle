@@ -4,17 +4,15 @@ apply plugin: 'kotlin-kapt'
 apply plugin: 'kotlin-android-extensions'
 
 android {
-    compileSdkVersion 29
-    buildToolsVersion "29.0.3"
-
+    compileSdkVersion 30
+    buildToolsVersion "30.0.2"
     defaultConfig {
         applicationId "ir.roela.countersaver"
         minSdkVersion 17
-        targetSdkVersion 29
-        versionCode 101
-        versionName "1.01"
+        targetSdkVersion 30
+        versionCode 102
+        versionName "1.02"
     }
-
     buildTypes {
         release {
             minifyEnabled true
@@ -28,24 +26,28 @@ android {
     kotlinOptions {
         jvmTarget = '1.8'
     }
+    buildFeatures {
+        dataBinding true
+    }
 }
 
 dependencies {
-    def androidx_navigation_version = "2.3.0"
+    def androidx_navigation_version = "2.3.1"
     def androidx_compat_version = "1.2.0"
+    def androidx_material_version = "1.2.1"
     def androidx_lifecycle_version = "2.2.0"
     def room_version = "2.2.5"
     def coroutines_version = "1.3.7"
 
     implementation fileTree(dir: "libs", include: ["*.jar"])
     implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
-    implementation 'androidx.core:core-ktx:1.3.1'
+    implementation 'androidx.core:core-ktx:1.3.2'
     implementation "androidx.appcompat:appcompat:$androidx_compat_version"
-    implementation "com.google.android.material:material:$androidx_compat_version"
-    
+    implementation "com.google.android.material:material:$androidx_material_version"
+
     implementation 'androidx.vectordrawable:vectordrawable:1.1.0'
-    implementation "androidx.navigation:navigation-fragment:$androidx_navigation_version"
-    implementation "androidx.navigation:navigation-ui:$androidx_navigation_version"
+    implementation "androidx.navigation:navigation-fragment-ktx:$androidx_navigation_version"
+    implementation "androidx.navigation:navigation-ui-ktx:$androidx_navigation_version"
     implementation "androidx.lifecycle:lifecycle-extensions:$androidx_lifecycle_version"
     implementation "androidx.navigation:navigation-fragment-ktx:$androidx_navigation_version"
     implementation "androidx.navigation:navigation-ui-ktx:$androidx_navigation_version"
@@ -60,4 +62,6 @@ dependencies {
     implementation 'com.daimajia.easing:library:2.0@aar'
     implementation 'com.daimajia.androidanimations:library:2.3@aar'
 
+    implementation 'com.github.aliab:Persian-Date-Picker-Dialog:1.5.2'
+    implementation 'android.arch.lifecycle:extensions:1.1.1'
 }

@@ -1,20 +1,21 @@
 package ir.roela.countersaver.ui.home
 
+import android.graphics.Color
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
-import android.widget.EditText
-import android.widget.ImageButton
-import android.widget.TextView
+import android.widget.*
 import androidx.appcompat.app.AlertDialog
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import com.daimajia.androidanimations.library.Techniques
 import com.daimajia.androidanimations.library.YoYo
 import com.google.android.material.snackbar.Snackbar
+import ir.hamsaa.persiandatepicker.Listener
+import ir.hamsaa.persiandatepicker.PersianDatePickerDialog
+import ir.hamsaa.persiandatepicker.util.PersianCalendar
 import ir.roela.countersaver.G
 import ir.roela.countersaver.R
 
@@ -68,9 +69,44 @@ class HomeFragment : Fragment(), View.OnClickListener, UserCounter.View {
             val dlgView = LayoutInflater.from(context).inflate(R.layout.dlg_save_counter, null)
             val txtCounterToSave = dlgView.findViewById<TextView>(R.id.txtCounterToSave)
             val edtCountName = dlgView.findViewById<EditText>(R.id.edtCountName)
+            val btnSelectDate = dlgView.findViewById<ImageButton>(R.id.btnSelectDate)
             val btnCancelDlg = dlgView.findViewById<Button>(R.id.btnCancelDlg)
             val btnDlgSaveCount = dlgView.findViewById<Button>(R.id.btnDlgSaveCount)
             txtCounterToSave.text = G.counter.toString()
+            btnSelectDate.setOnClickListener {
+                val initDate = PersianCalendar()
+                initDate.setPersianDate(1370, 3, 13)
+                val picker = PersianDatePickerDialog(requireActivity())
+                    .setPositiveButtonString("انتخاب")
+                    .setNegativeButton("بیخیال")
+                    .setTodayButton("امروز")
+                    .setTodayButtonVisible(true)
+                    .setMinYear(1300)
+                    .setMaxYear(PersianDatePickerDialog.THIS_YEAR)
+                    .setInitDate(initDate)
+                    .setActionTextColor(Color.GRAY)
+                    .setTitleType(PersianDatePickerDialog.WEEKDAY_DAY_MONTH_YEAR)
+                    .setShowInBottomSheet(true)
+                    .setListener(object :Listener{
+                        override fun onDateSelected(persianCalendar: PersianCalendar) {
+                            Log.d("counter saver", "onDateSelected: "+persianCalendar.getGregorianChange());//Fri Oct 15 03:25:44 GMT+04:30 1582
+                            Log.d("counter saver", "onDateSelected: "+persianCalendar.getTimeInMillis());//1583253636577
+                            Log.d("counter saver", "onDateSelected: "+persianCalendar.getTime());//Tue Mar 03 20:10:36 GMT+03:30 2020
+                            Log.d("counter saver", "onDateSelected: "+persianCalendar.getDelimiter());//  /
+                            Log.d("counter saver", "onDateSelected: "+persianCalendar.getPersianLongDate());// سه‌شنبه  13  اسفند  1398
+                            Log.d("counter saver", "onDateSelected: "+persianCalendar.getPersianLongDateAndTime()); //سه‌شنبه  13  اسفند  1398 ساعت 20:10:36
+                            Log.d("counter saver", "onDateSelected: "+persianCalendar.getPersianMonthName()); //اسفند
+                            Log.d("counter saver", "onDateSelected: "+persianCalendar.isPersianLeapYear());//false
+                            Toast.makeText(requireActivity(), persianCalendar.getPersianYear().toString() + "/" + persianCalendar.getPersianMonth() + "/" + persianCalendar.getPersianDay(), Toast.LENGTH_SHORT).show();
+                        }
+
+                        override fun onDismissed() {
+                            Log.d("counter saver","dismissed")
+                        }
+
+                    })
+                    picker.show()
+            }
             btnCancelDlg.setOnClickListener {
                 saveDialog.dismiss()
             }
