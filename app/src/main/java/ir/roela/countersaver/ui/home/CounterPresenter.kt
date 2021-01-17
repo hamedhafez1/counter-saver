@@ -36,11 +36,12 @@ class CounterPresenter(
     override fun saveCount(
         application: Application,
         name: String,
+        date: String,
         dialogListener: UserCounter.SaveDialogListener
     ) {
         try {
             if (name.length > 2) {
-                val counter = CounterModel(name, count.countNumberStr)
+                val counter = CounterModel(name, date, count.countNumberStr)
                 CounterViewModel(application).insertCounter(counter)
                 count.resetCount()
                 view.txtCountSetText()

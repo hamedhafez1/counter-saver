@@ -88,8 +88,10 @@ class HomeFragment : Fragment(), View.OnClickListener, UserCounter.View {
             }
             btnDlgSaveCount.setOnClickListener {
                 val name = edtCountName.text.toString().trim()
+                val date = txtSelectedDate.text.toString().trim()
                 counterPresenter.saveCount(requireActivity().application,
                     name,
+                    date,
                     object : UserCounter.SaveDialogListener {
                         override fun saveSuccess() {
                             showSnackBar(R.string.saved)

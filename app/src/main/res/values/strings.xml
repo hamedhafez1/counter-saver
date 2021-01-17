@@ -5,6 +5,7 @@
     <string name="counter_plus">شمارش +</string>
     <string name="counter_minus">شمارش -</string>
     <string name="counter_Number">تعداد شمارش</string>
+    <string name="counter_Date">تاریخ شمارش</string>
     <string name="count_name">اسم شمارش</string>
     <string name="save_counter">ذخیره شمارش</string>
     <string name="close">بستن</string>

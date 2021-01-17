@@ -13,7 +13,12 @@ interface UserCounter {
         fun initCounterText()
         fun increaseCount()
         fun decreaseCount()
-        fun saveCount(application: Application, name: String, dialogListener: SaveDialogListener)
+        fun saveCount(
+            application: Application,
+            name: String,
+            date: String,
+            dialogListener: SaveDialogListener
+        )
     }
 
     interface SaveDialogListener {

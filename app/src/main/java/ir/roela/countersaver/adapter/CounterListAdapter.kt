@@ -33,6 +33,8 @@ class CounterListAdapter(
 
     override fun onBindViewHolder(holder: CounterHolder, position: Int) {
         val name = countersList[position].countName
+        val date = countersList[position].countDate
+        holder.txtCounterDate?.text = date
         holder.txtCounterName?.text = name
         holder.txtCounterValue?.text = countersList[position].countValue
         holder.btnDeleteCount?.setOnClickListener { view ->
