@@ -8,13 +8,13 @@ import android.widget.PopupMenu
 import androidx.appcompat.view.ContextThemeWrapper
 import androidx.recyclerview.widget.RecyclerView
 import ir.roela.countersaver.R
-import ir.roela.countersaver.model.Counter
+import ir.roela.countersaver.model.CounterModel
 import ir.roela.countersaver.ui.dashboard.CounterViewModel
 
 
 class CounterListAdapter(
     private var application: Application,
-    private var countersList: List<Counter>
+    private var countersList: List<CounterModel>
 ) : RecyclerView.Adapter<CounterHolder>() {
 
     private var layoutInflater: LayoutInflater? = null

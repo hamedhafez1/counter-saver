@@ -2,30 +2,33 @@ package ir.roela.countersaver.ui.home
 
 import android.app.Application
 import android.util.Log
-import ir.roela.countersaver.G
 import ir.roela.countersaver.R
-import ir.roela.countersaver.model.Counter
+import ir.roela.countersaver.model.Count
+import ir.roela.countersaver.model.CounterModel
 import ir.roela.countersaver.ui.dashboard.CounterViewModel
 
-class CounterPresenter(private val view: UserCounter.View) : UserCounter.Presenter {
+class CounterPresenter(
+    private val view: UserCounter.View,
+    private val count: Count
+) : UserCounter.Presenter {
 
     override fun initCounterText() {
-        if (G.counter == 0L) {
+        if (count.countNumber == 0L) {
             view.enableSaveCountButton(false)
         }
         view.txtCountSetText()
     }
 
     override fun increaseCount() {
-        if (G.counter == 0L)
+        if (count.countNumber == 0L)
             view.enableSaveCountButton(true)
-        G.counter++
+        count.addCountNumber()
         view.txtCountSetText()
     }
 
     override fun decreaseCount() {
-        if (G.counter != 0L) {
-            G.counter--
+        if (count.countNumber != 0L) {
+            count.minusCountNumber()
             view.txtCountSetText()
         }
     }
@@ -37,9 +40,9 @@ class CounterPresenter(private val view: UserCounter.View) : UserCounter.Present
     ) {
         try {
             if (name.length > 2) {
-                val counter = Counter(name, G.counter.toString())
+                val counter = CounterModel(name, count.countNumberStr)
                 CounterViewModel(application).insertCounter(counter)
-                G.counter = 0L
+                count.resetCount()
                 view.txtCountSetText()
                 view.enableSaveCountButton(false)
                 dialogListener.dismissDialog()

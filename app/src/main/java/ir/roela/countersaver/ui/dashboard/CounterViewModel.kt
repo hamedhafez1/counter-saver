@@ -2,7 +2,7 @@ package ir.roela.countersaver.ui.dashboard
 
 import android.app.Application
 import androidx.lifecycle.AndroidViewModel
-import ir.roela.countersaver.model.Counter
+import ir.roela.countersaver.model.CounterModel
 import ir.roela.countersaver.model.CounterRepository
 
 class CounterViewModel(application: Application) : AndroidViewModel(application) {
@@ -11,9 +11,9 @@ class CounterViewModel(application: Application) : AndroidViewModel(application)
 
     fun getCounters() = repository.getCounters()
 
-    fun insertCounter(counter: Counter) = repository.insertCounter(counter)
+    fun insertCounter(counterModel: CounterModel) = repository.insertCounter(counterModel)
 
-    fun deleteCounter(counter: Counter) = repository.deleteCounter(counter)
+    fun deleteCounter(counterModel: CounterModel) = repository.deleteCounter(counterModel)
 
 }
 

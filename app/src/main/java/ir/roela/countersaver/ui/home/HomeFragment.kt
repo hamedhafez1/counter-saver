@@ -1,6 +1,5 @@
 package ir.roela.countersaver.ui.home
 
-import android.graphics.Color
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -16,15 +15,17 @@ import com.google.android.material.snackbar.Snackbar
 import ir.hamsaa.persiandatepicker.Listener
 import ir.hamsaa.persiandatepicker.PersianDatePickerDialog
 import ir.hamsaa.persiandatepicker.util.PersianCalendar
-import ir.roela.countersaver.G
 import ir.roela.countersaver.R
+import ir.roela.countersaver.model.Count
 
 
 class HomeFragment : Fragment(), View.OnClickListener, UserCounter.View {
 
     private var textView: TextView? = null
     private var btnCounterSave: ImageButton? = null
-    private var counterPresenter = CounterPresenter(this)
+
+    private var count = Count.instance
+    private var counterPresenter = CounterPresenter(this, count!!)
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -56,7 +57,7 @@ class HomeFragment : Fragment(), View.OnClickListener, UserCounter.View {
                 startTextAnimation()
             }
             R.id.btnResetCounter -> {
-                G.counter = 0L
+                count?.resetCount()
                 txtCountSetText()
             }
             R.id.btnSaveCounter -> showDialogSave()
@@ -64,48 +65,23 @@ class HomeFragment : Fragment(), View.OnClickListener, UserCounter.View {
     }
 
     private fun showDialogSave() {
-        if (G.counter != 0L) {
+        if (count?.countNumber != 0L) {
             val saveDialog = AlertDialog.Builder(requireActivity()).create()
             val dlgView = LayoutInflater.from(context).inflate(R.layout.dlg_save_counter, null)
             val txtCounterToSave = dlgView.findViewById<TextView>(R.id.txtCounterToSave)
+            val txtSelectedDate = dlgView.findViewById<TextView>(R.id.txtSelectedDate)
             val edtCountName = dlgView.findViewById<EditText>(R.id.edtCountName)
             val btnSelectDate = dlgView.findViewById<ImageButton>(R.id.btnSelectDate)
             val btnCancelDlg = dlgView.findViewById<Button>(R.id.btnCancelDlg)
             val btnDlgSaveCount = dlgView.findViewById<Button>(R.id.btnDlgSaveCount)
-            txtCounterToSave.text = G.counter.toString()
+            txtCounterToSave.text = count?.countNumberStr
+            txtSelectedDate.text = PersianCalendar().persianLongDate
             btnSelectDate.setOnClickListener {
-                val initDate = PersianCalendar()
-                initDate.setPersianDate(1370, 3, 13)
-                val picker = PersianDatePickerDialog(requireActivity())
-                    .setPositiveButtonString("انتخاب")
-                    .setNegativeButton("بیخیال")
-                    .setTodayButton("امروز")
-                    .setTodayButtonVisible(true)
-                    .setMinYear(1300)
-                    .setMaxYear(PersianDatePickerDialog.THIS_YEAR)
-                    .setInitDate(initDate)
-                    .setActionTextColor(Color.GRAY)
-                    .setTitleType(PersianDatePickerDialog.WEEKDAY_DAY_MONTH_YEAR)
-                    .setShowInBottomSheet(true)
-                    .setListener(object :Listener{
-                        override fun onDateSelected(persianCalendar: PersianCalendar) {
-                            Log.d("counter saver", "onDateSelected: "+persianCalendar.getGregorianChange());//Fri Oct 15 03:25:44 GMT+04:30 1582
-                            Log.d("counter saver", "onDateSelected: "+persianCalendar.getTimeInMillis());//1583253636577
-                            Log.d("counter saver", "onDateSelected: "+persianCalendar.getTime());//Tue Mar 03 20:10:36 GMT+03:30 2020
-                            Log.d("counter saver", "onDateSelected: "+persianCalendar.getDelimiter());//  /
-                            Log.d("counter saver", "onDateSelected: "+persianCalendar.getPersianLongDate());// سه‌شنبه  13  اسفند  1398
-                            Log.d("counter saver", "onDateSelected: "+persianCalendar.getPersianLongDateAndTime()); //سه‌شنبه  13  اسفند  1398 ساعت 20:10:36
-                            Log.d("counter saver", "onDateSelected: "+persianCalendar.getPersianMonthName()); //اسفند
-                            Log.d("counter saver", "onDateSelected: "+persianCalendar.isPersianLeapYear());//false
-                            Toast.makeText(requireActivity(), persianCalendar.getPersianYear().toString() + "/" + persianCalendar.getPersianMonth() + "/" + persianCalendar.getPersianDay(), Toast.LENGTH_SHORT).show();
-                        }
-
-                        override fun onDismissed() {
-                            Log.d("counter saver","dismissed")
-                        }
-
-                    })
-                    picker.show()
+                openDatePicker(object : SelectDate {
+                    override fun onSelectDate(selectedDate: String) {
+                        txtSelectedDate.text = selectedDate
+                    }
+                })
             }
             btnCancelDlg.setOnClickListener {
                 saveDialog.dismiss()
@@ -133,6 +109,46 @@ class HomeFragment : Fragment(), View.OnClickListener, UserCounter.View {
         } else showSnackBar(R.string.please_increase_counter)
     }
 
+    private interface SelectDate {
+        fun onSelectDate(selectedDate: String)
+    }
+
+    private fun openDatePicker(selectDate: SelectDate) {
+        val txtColor = ContextCompat.getColor(requireContext(), R.color.colorPrimary)
+        val initDate = PersianCalendar()
+        initDate.setPersianDate(
+            initDate.persianYear,
+            initDate.persianMonth,
+            initDate.persianDay
+        )
+        val picker = PersianDatePickerDialog(requireActivity())
+            .setPositiveButtonString("انتخاب")
+            .setNegativeButton("بیخیال")
+            .setTodayButton("امروز")
+            .setTodayButtonVisible(true)
+            .setMinYear(initDate.persianYear - 1)
+            .setMaxYear(PersianDatePickerDialog.THIS_YEAR)
+            .setInitDate(initDate)
+            .setTitleColor(txtColor)
+            .setActionTextColor(txtColor)
+            .setTitleType(PersianDatePickerDialog.WEEKDAY_DAY_MONTH_YEAR)
+            .setShowInBottomSheet(true)
+            .setListener(object : Listener {
+                override fun onDateSelected(persianCalendar: PersianCalendar) {
+                    selectDate.onSelectDate(persianCalendar.persianLongDate)
+                }
+
+                override fun onDismissed() {
+                    Toast.makeText(
+                        requireContext(),
+                        R.string.no_select_date,
+                        Toast.LENGTH_SHORT
+                    ).show()
+                }
+            })
+        picker.show()
+    }
+
     private fun showSnackBar(resString: Int) {
         try {
             Snackbar
@@ -154,7 +170,7 @@ class HomeFragment : Fragment(), View.OnClickListener, UserCounter.View {
     }
 
     override fun txtCountSetText() {
-        textView?.text = G.counter.toString()
+        textView?.text = count?.countNumberStr
     }
 
     override fun enableSaveCountButton(isEnable: Boolean) {

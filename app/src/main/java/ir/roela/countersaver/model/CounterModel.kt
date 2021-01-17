@@ -3,7 +3,7 @@ package ir.roela.countersaver.model
 import androidx.room.*
 
 @Entity(tableName = "counter")
-data class Counter(
+data class CounterModel(
     @ColumnInfo(name = "counter_name") val countName: String,
     @ColumnInfo(name = "counter_value") val countValue: String
 ) {

@@ -4,10 +4,10 @@ import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
-import ir.roela.countersaver.model.Counter
+import ir.roela.countersaver.model.CounterModel
 import ir.roela.countersaver.model.CounterDao
 
-@Database(entities = [Counter::class], version = 1)
+@Database(entities = [CounterModel::class], version = 1)
 abstract class AppDataBase : RoomDatabase() {
     abstract fun counterDao(): CounterDao?
 

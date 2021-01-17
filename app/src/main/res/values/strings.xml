@@ -9,6 +9,7 @@
     <string name="save_counter">ذخیره شمارش</string>
     <string name="close">بستن</string>
     <string name="saved">ذخیره شد</string>
+    <string name="no_select_date">تاریخی انتخاب نشد</string>
     <string name="please_increase_counter">لطفا مقدار شمارنده را افزایش دهید</string>
     <string name="entered_name_short">نام وارد شده خیلی کوتاه است</string>
 

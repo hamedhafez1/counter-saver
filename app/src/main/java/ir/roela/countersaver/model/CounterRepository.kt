@@ -22,18 +22,18 @@ class CounterRepository(application: Application) : CoroutineScope {
 
     fun getCounters() = counterDao?.getAll()
 
-    fun insertCounter(counter: Counter) {
+    fun insertCounter(counterModel: CounterModel) {
         launch {
             withContext(Dispatchers.IO) {
-                counterDao?.insert(counter)
+                counterDao?.insert(counterModel)
             }
         }
     }
 
-    fun deleteCounter(counter: Counter) {
+    fun deleteCounter(counterModel: CounterModel) {
         launch {
             withContext(Dispatchers.IO) {
-                counterDao?.delete(counter)
+                counterDao?.delete(counterModel)
             }
         }
     }

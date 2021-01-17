@@ -9,11 +9,11 @@ import androidx.room.Query
 @Dao
 interface CounterDao {
     @Query("SELECT * FROM counter ORDER BY CounterId DESC")
-    fun getAll(): LiveData<List<Counter>>
+    fun getAll(): LiveData<List<CounterModel>>
 
     @Insert
-    fun insert(counter: Counter)
+    fun insert(counterModel: CounterModel)
 
     @Delete
-    fun delete(counter: Counter)
+    fun delete(counterModel: CounterModel)
 }
